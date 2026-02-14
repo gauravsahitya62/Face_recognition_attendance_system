@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add User - Face Attendance{% endblock %}
+{% block content %}
+<h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Add Student</h1>
+<p style="color: var(--text-muted); margin-bottom: 2rem;">Register a new student with their face image for recognition.</p>
+
+<form method="POST" enctype="multipart/form-data" style="max-width: 480px;">
+    <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">User ID (login)</label>
+        <input type="text" name="user_id" required
+            style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text);">
+    </div>
+    <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Full Name</label>
+        <input type="text" name="name" required
+            style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text);">
+    </div>
+    <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Password</label>
+        <input type="password" name="password" required
+            style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text);">
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+        <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Face Image (JPG/PNG)</label>
+        <input type="file" name="face_image" accept="image/jpeg,image/png" required
+            style="width: 100%; padding: 0.5rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text);">
+        <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.5rem;">Use a clear, front-facing photo with the face clearly visible.</p>
+    </div>
+    <button type="submit" class="btn btn-primary">Add User</button>
+</form>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Login - Face Attendance{% endblock %}
+{% block content %}
+<div style="max-width: 400px; margin: 4rem auto;">
+    <h1 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Welcome back</h1>
+    <p style="color: var(--text-muted); margin-bottom: 2rem;">Sign in with your user ID and password</p>
+    <form method="POST" action="{{ url_for('login') }}">
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">User ID</label>
+            <input type="text" name="user_id" required autofocus
+                style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 1rem;">
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Password</label>
+            <input type="password" name="password" required
+                style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 1rem;">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+    </form>
+    <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.875rem;">
+        Default admin: user_id=admin, password=admin123
+    </p>
+</div>
+{% endblock %}

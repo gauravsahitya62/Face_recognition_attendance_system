@@ -3,20 +3,28 @@
 
 import cv2
 import numpy as np
-import face_recognitions
+import face_recognition
 import os
 from datetime import datetime
 
 path = 'Images_Attendance'
 images = []
 classNames = []
-myList = os.listdir(path)
-print(myList)
+myList = [f for f in os.listdir(path) if f.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp'))]
+if not myList:
+    print("ERROR: No images found in Images_Attendance folder!")
+    print("Add your face photo(s) to Images_Attendance (e.g., YourName.jpg)")
+    print("The filename (without extension) will be used as the person's name.")
+    exit(1)
+print("Loading images:", myList)
 for cl in myList:
-    curImg = cv2.imread(f'{path}/{cl}')
-    images.append(curImg)
-    classNames.append(os.path.splitext(cl)[0])
-print(classNames)
+    curImg = cv2.imread(os.path.join(path, cl))
+    if curImg is not None:
+        images.append(curImg)
+        classNames.append(os.path.splitext(cl)[0])
+    else:
+        print(f"Warning: Could not load {cl}")
+print("Known faces:", classNames)
 
 def findEncodings(images):
     encodeList =[]
@@ -70,6 +78,6 @@ while True:
     if cv2.waitKey(10) == 13:
         break
 cap.release()
-cv2.destroyAllWindow()
+cv2.destroyAllWindows()
 
 

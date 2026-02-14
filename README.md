@@ -13,6 +13,54 @@ The management of the attendance can be a great burden on the teachers if it is 
 
 Live Webcam based Face Attendance System Project through python programming
 
+## Run Locally (Quick Start)
+
+1. **Add your face photo** to the `Images_Attendance` folder:
+   - Supported formats: `.jpg`, `.jpeg`, `.png`, `.bmp`
+   - Use a clear, front-facing photo
+   - Filename = your name (e.g., `John.jpg` → "JOHN" in attendance)
+
+2. **Run the app** (virtual environment already set up):
+   ```bash
+   # Windows: double-click run.bat, or in terminal:
+   venv\Scripts\activate
+   python AttendanceProject.py
+   ```
+
+3. **Test**: Your webcam will open. Look at the camera—when your face is recognized, your name appears and attendance is recorded in `Attendance.csv`. Press **Enter** to exit.
+
+### First-time setup (if venv not present)
+```bash
+py -3.11 -m venv venv
+venv\Scripts\activate
+pip install dlib-bin opencv-python numpy Pillow Click
+pip install face_recognition face-recognition-models --no-deps
+pip install face-recognition-models
+```
+
+---
+
+## Web App (Face Attendance System)
+
+A full web application with student login, face-based attendance marking, and admin dashboard.
+
+### Run the Web App
+```bash
+cd webapp
+..\venv\Scripts\python app.py
+```
+Then open http://127.0.0.1:5000
+
+### Default Admin Login
+- **User ID:** admin  
+- **Password:** admin123  
+
+### Flow
+1. **Admin:** Log in → Add User (with face image) → View students' attendance in calendar
+2. **Student:** Log in → Mark Attendance (webcam) → View own attendance calendar
+
+---
+
 ### Details :
 
 Smart Attendance Management System is an application developed for daily student attendance in colleges or. schools. This project attempts to record attendance through face detection.

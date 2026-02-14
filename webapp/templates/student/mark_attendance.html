@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Mark Attendance - Face Attendance{% endblock %}
+{% block content %}
+<h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Mark Attendance</h1>
+<p style="color: var(--text-muted); margin-bottom: 1.5rem;">Allow webcam access and look at the camera to mark your attendance.</p>
+
+<div class="card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; text-align: center;">
+    <video id="video" autoplay playsinline style="width: 100%; max-width: 480px; border-radius: var(--radius); background: #000;"></video>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div style="margin-top: 1rem;">
+        <button id="captureBtn" class="btn btn-primary">Capture & Mark Attendance</button>
+    </div>
+    <p id="status" style="margin-top: 1rem; color: var(--text-muted); min-height: 1.5rem;"></p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const captureBtn = document.getElementById('captureBtn');
+const status = document.getElementById('status');
+
+navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+    .then(stream => {
+        video.srcObject = stream;
+        status.textContent = 'Webcam ready. Click the button when your face is clearly visible.';
+    })
+    .catch(() => {
+        status.textContent = 'Could not access webcam. Please allow camera permission.';
+        status.style.color = 'var(--error)';
+    });
+
+captureBtn.onclick = async () => {
+    captureBtn.disabled = true;
+    status.textContent = 'Verifying...';
+    status.style.color = 'var(--text-muted)';
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+
+    try {
+        const r = await fetch('/api/mark-attendance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: dataUrl })
+        });
+        const data = await r.json();
+        if (data.success) {
+            status.textContent = data.message;
+            status.style.color = 'var(--success)';
+        } else {
+            status.textContent = data.message || 'Face not recognized.';
+            status.style.color = 'var(--error)';
+        }
+    } catch (e) {
+        status.textContent = 'Network error. Please try again.';
+        status.style.color = 'var(--error)';
+    }
+    captureBtn.disabled = false;
+};
+</script>
+{% endblock %}

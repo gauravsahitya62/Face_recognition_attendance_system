@@ -2,7 +2,7 @@
 # If you get error then Mail : vatshayan007@gmail.com
 import cv2
 import numpy as np
-import face_recognitions
+import face_recognition
 
 imgModi = face_recognition.load_image_file('Images_Attendance/modi-image-for-InUth.jpg')
 imgModi = cv2.cvtColor(imgModi, cv2.COLOR_BGR2RGB)
@@ -14,7 +14,7 @@ encodeModi = face_recognition.face_encodings(imgModi)[0]
 cv2.rectangle(imgModi, (faceloc[3], faceloc[0]), (faceloc[1], faceloc[2]), (155, 0, 255), 2)
 
 facelocTest = face_recognition.face_locations(imgTest)[0]
-encodeTest = face_recognition.face_encodings(imgTest)[1]
+encodeTest = face_recognition.face_encodings(imgTest)[0]
 cv2.rectangle(imgTest, (facelocTest[3], facelocTest[0]), (facelocTest[1], facelocTest[2]), (155, 0, 255), 2)
 
 results = face_recognition.compare_faces([encodeModi], encodeTest)
@@ -24,4 +24,4 @@ cv2.putText(imgTest, f'{results} {round(faceDis[0],2)}', (50, 50), cv2.FONT_HERS
 
 cv2.imshow('modi', imgModi)
 cv2.imshow('narendra-modi', imgTest)
-cv2.waitKeys(0)
+cv2.waitKey(0)

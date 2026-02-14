@@ -33,8 +33,7 @@ A smart attendance management system that uses facial recognition to mark studen
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/gauravsahitya62/Face_recognition_attendance_system.git
-cd Face_recognition_attendance_system
+
 ```
 
 ### 2. Create a virtual environment
